@@ -1,12 +1,14 @@
 //Kathy Thao Iteration 10
 
-1. SELECT * 
+
+[1] SELECT * 
 FROM movies
 	INNER JOIN movie_data ON (movies.movie_id = movie_data.movie_id)
 WHERE movie_data.genre = "Animation";
-2. Before the optimization the movie_data table had to run through the whole table (2 rows) to find the movie genre I was looking for.
-3. To optimize my query I indexed the movies.movie_id and movie_data.genre. 
-4. After the optimization it only returned 1 row. 
+[2] Before the optimization the movie_data table had to run through the whole table (2 rows) to find the movie genre I was looking for.
+[3] To optimize my query I indexed the movies.movie_id and movie_data.genre. I also changed to query to only look at the movie_id and the movie_data genre 
+SELECT movies.movie_id, movie_data.genre FROM movies INNER JOIN movie_data ON (movies.movie_id = movie_data.movie_id) WHERE movie_data.genre = "Animation"
+[4] After the optimization it only returned 1 row. 1 row. 
 
 
 
@@ -15,7 +17,7 @@ WHERE movie_data.genre = "Animation";
 SELECT *
 FROM `movies`
 WHERE year_made = "2005" OR year_made = "1956";
-[2] the query took 0.0031 seconds. The rows number prior to the optimization is 1002 for SIMPLE type
+[2] the query took 0.0405 seconds. The rows number prior to the optimization is 18283 for SIMPLE type
 [3] I indexed the attribute `year_made` in the table `movies` as well as convert the "OR" to "UNION ALL"
 Optimal query:
 (SELECT *
@@ -25,7 +27,7 @@ UNION ALL
 (SELECT *
 FROM `movies`
 WHERE `year_made` = "1956");
-[4] The query took 0.0026 seconds. The rows number after to the optimization is 6 for PRIMARY type and 10 for UNION type.
+[4] The query took 0.0023 seconds. The rows number after to the optimization is 6 for PRIMARY type and 10 for UNION type.
 
 
 
